@@ -10,6 +10,7 @@ from sklearn.metrics import classification_report, confusion_matrix, accuracy_sc
 import argparse
 import mlflow
 import mlflow.sklearn
+from sklearn.feature_selection import SelectFromModel
 
 # Enable automatic logging to MLflow
 mlflow.autolog()
