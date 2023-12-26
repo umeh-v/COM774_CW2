@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/user/Documents/COM774_CW2/production/mlruns/0/f324e080685d4c26822be1b51d6a9c84/artifacts
+end_time: 1703634100973
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: f324e080685d4c26822be1b51d6a9c84
+run_uuid: f324e080685d4c26822be1b51d6a9c84
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1703633961560
+status: 3
+tags: []
+user_id: Vinny

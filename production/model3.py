@@ -24,6 +24,8 @@ args = parser.parse_args()
 # Load datasets
 train_dataset = pd.read_csv(args.trainingdata)
 test_dataset = pd.read_csv(args.testingdata)
+#train_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\train_dataset.csv")
+#test_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
 
 # Encoding the target variable
 label_encoder = LabelEncoder()
@@ -65,8 +67,9 @@ best_model = grid_search.best_estimator_
 # Evaluation on the validation set
 y_val_pred = best_model.predict(X_val_selected)
 y_val_pred_labels = label_encoder.inverse_transform(y_val_pred)  # Convert to original labels
-val_report = classification_report(y_val, y_val_pred, target_names=activity_names, output_dict=True)
-print(classification_report(y_val, y_val_pred_labels))
+y_val_labels = label_encoder.inverse_transform(y_val)  # Convert y_val to original string labels
+val_report = classification_report(y_val_labels, y_val_pred_labels, target_names=activity_names, output_dict=True)
+print(val_report)
 
 # Log validation metrics
 mlflow.log_metrics({"val_accuracy": val_report['accuracy'], 
@@ -75,11 +78,12 @@ mlflow.log_metrics({"val_accuracy": val_report['accuracy'],
                     "val_f1_score": val_report['weighted avg']['f1-score']})
 
 # Confusion matrix for the validation set
-val_conf_matrix = confusion_matrix(y_val, y_val_pred)
+val_conf_matrix = confusion_matrix(y_val_labels, y_val_pred_labels)
 sns.heatmap(val_conf_matrix, annot=True, fmt='g', xticklabels=activity_names, yticklabels=activity_names)
 plt.xlabel('Predicted Labels')
 plt.ylabel('True Labels')
 plt.show()
+
 
 # Preparing the test dataset
 X_test = test_dataset.drop(['Activity', 'subject'], axis=1)
@@ -91,7 +95,7 @@ X_test_selected = selector.transform(X_test)
 y_test_pred = best_model.predict(X_test_selected)
 y_test_pred_labels = label_encoder.inverse_transform(y_test_pred)  # Convert to original labels
 test_report = classification_report(y_test, y_test_pred, target_names=activity_names, output_dict=True)
-print(classification_report(y_test, y_test_pred_labels))
+print(classification_report(y_test, y_test_pred))
 
 # Log test metrics
 mlflow.log_metrics({"test_accuracy": test_report['accuracy'], 
