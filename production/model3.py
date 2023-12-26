@@ -68,7 +68,7 @@ y_val_pred_labels = label_encoder.inverse_transform(y_val_pred)  # Convert to or
 print(classification_report(y_val, y_val_pred_labels))
 
 # Confusion matrix for the validation set
-val_conf_matrix = confusion_matrix(y_val, y_val_pred)
+val_conf_matrix = confusion_matrix(y_val, y_val_pred_labels)
 sns.heatmap(val_conf_matrix, annot=True, fmt='g', xticklabels=activity_names, yticklabels=activity_names)
 plt.xlabel('Predicted Labels')
 plt.ylabel('True Labels')
@@ -86,7 +86,7 @@ y_test_pred_labels = label_encoder.inverse_transform(y_test_pred)  # Convert to 
 print(classification_report(y_test, y_test_pred_labels))
 
 # Confusion matrix for the test set
-test_conf_matrix = confusion_matrix(y_test, y_test_pred)
+test_conf_matrix = confusion_matrix(y_test, y_test_pred_labels)
 sns.heatmap(test_conf_matrix, annot=True, fmt='g', xticklabels=activity_names, yticklabels=activity_names)
 plt.xlabel('Predicted Labels')
 plt.ylabel('True Labels')
