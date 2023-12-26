@@ -3,7 +3,7 @@ code: .
 command: |
   pip install seaborn
   pip install mlflow azureml-mlflow
-  python model2.py --trainingdata ${{ inputs.training_data }} --testingdata ${{ inputs.test_dataset }}
+  python model3.py --trainingdata ${{ inputs.training_data }} --testingdata ${{ inputs.test_dataset }}
 inputs:
   training_data:
     type: uri_file
