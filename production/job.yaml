@@ -1,0 +1,17 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+code: .
+command: |
+  pip install seaborn
+  pip install mlflow azureml-mlflow
+  python model2.py --trainingdata ${{ inputs.training_data }} --testingdata ${{ inputs.test_dataset }}
+inputs:
+  training_data:
+    type: uri_file
+    path: azureml:train:1
+  test_dataset:
+    type: uri_file
+    path: azureml:test:1
+environment: azureml://registries/azureml/environments/sklearn-1.1/versions/20
+compute: test-compute
+experiment_name: practice_experiment
+description: COM774_CW2
