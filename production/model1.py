@@ -50,6 +50,7 @@ test_dataset['Activity'] = label_encoder.transform(test_dataset['Activity'])
 # %%
 train_dataset.head
 
+
 # %%
 train_dataset.shape
 
