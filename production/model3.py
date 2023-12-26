@@ -6,8 +6,7 @@ import seaborn as sns
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.feature_selection import SelectFromModel
+from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 import argparse
 import mlflow
 import mlflow.sklearn
@@ -65,10 +64,17 @@ best_model = grid_search.best_estimator_
 # Evaluation on the validation set
 y_val_pred = best_model.predict(X_val_selected)
 y_val_pred_labels = label_encoder.inverse_transform(y_val_pred)  # Convert to original labels
+val_report = classification_report(y_val, y_val_pred, target_names=activity_names, output_dict=True)
 print(classification_report(y_val, y_val_pred_labels))
 
+# Log validation metrics
+mlflow.log_metrics({"val_accuracy": val_report['accuracy'], 
+                    "val_precision": val_report['weighted avg']['precision'],
+                    "val_recall": val_report['weighted avg']['recall'],
+                    "val_f1_score": val_report['weighted avg']['f1-score']})
+
 # Confusion matrix for the validation set
-val_conf_matrix = confusion_matrix(y_val, y_val_pred_labels)
+val_conf_matrix = confusion_matrix(y_val, y_val_pred)
 sns.heatmap(val_conf_matrix, annot=True, fmt='g', xticklabels=activity_names, yticklabels=activity_names)
 plt.xlabel('Predicted Labels')
 plt.ylabel('True Labels')
@@ -83,10 +89,17 @@ X_test_selected = selector.transform(X_test)
 # Final evaluation on the test set
 y_test_pred = best_model.predict(X_test_selected)
 y_test_pred_labels = label_encoder.inverse_transform(y_test_pred)  # Convert to original labels
+test_report = classification_report(y_test, y_test_pred, target_names=activity_names, output_dict=True)
 print(classification_report(y_test, y_test_pred_labels))
 
+# Log test metrics
+mlflow.log_metrics({"test_accuracy": test_report['accuracy'], 
+                    "test_precision": test_report['weighted avg']['precision'],
+                    "test_recall": test_report['weighted avg']['recall'],
+                    "test_f1_score": test_report['weighted avg']['f1-score']})
+
 # Confusion matrix for the test set
-test_conf_matrix = confusion_matrix(y_test, y_test_pred_labels)
+test_conf_matrix = confusion_matrix(y_test, y_test_pred)
 sns.heatmap(test_conf_matrix, annot=True, fmt='g', xticklabels=activity_names, yticklabels=activity_names)
 plt.xlabel('Predicted Labels')
 plt.ylabel('True Labels')
