@@ -85,7 +85,7 @@ X_train_selected = selector.transform(X_train)
 X_val_selected = selector.transform(X_val)
 
 # %%
-# Feature Selection Visualization
+# Feature Selection Visualization for the most important features
 importances = rf.feature_importances_
 indices = np.argsort(importances)[::-1]
 plt.figure(figsize=(12, 6))
