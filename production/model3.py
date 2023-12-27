@@ -27,7 +27,7 @@ test_dataset = pd.read_csv(args.testingdata)
 #train_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\train_dataset.csv")
 #test_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
 
-# Encoding the target variable
+# Encoding the target variable trnasform
 label_encoder = LabelEncoder()
 train_dataset['Activity'] = label_encoder.fit_transform(train_dataset['Activity'])
 test_dataset['Activity'] = label_encoder.transform(test_dataset['Activity'])
