@@ -25,7 +25,7 @@ args = parser.parse_args()
 mlflow.autolog()
 
 # %%
-# Load the datasets
+# Load the datasets without duplicate drop
 # Use args.trainingdata as the path to your training dataset
 train_dataset = pd.read_csv(args.trainingdata)
 test_dataset = pd.read_csv(args.testingdata)
