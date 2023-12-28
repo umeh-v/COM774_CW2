@@ -1,0 +1,52 @@
+name: GitHub Actions Test
+# run-name: ${{ github.actor }} workflow test
+on:
+    push:
+        branches: [main, stage]
+    pull_request:
+        branches: [main]
+jobs:
+  testJob:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hi! I'm running because of a ${{ github.event_name }} event."
+      - run: echo "Checking out the repository from ${{ github.repository }}."
+      - name: Clone repository code
+        uses: actions/checkout@v4
+      - run: echo "Repository cloned, I think I'm ready. The files look like this:"
+      - name: List files
+        run: |
+          ls ${{ github.workspace}}
+      - name: login to Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+      - name: Test Azure login for getting details
+        run: az account show
+      - name: install azure ML cli extention
+        run: az extension  add -n azure-cli-ml
+
+      - name: add azure Az extention
+        run: az extension add --name ml
+
+      - name: update Azure extention
+        run: az extension update -n azure-cli-ml
+
+      - name: List directory contents
+        run: ls -lah
+    # conditional for testing and model training
+      - name: Run unit testing
+        if: github.ref == 'refs/heads/stage'
+        run: |
+          # on push trigger to stage branch, run unnitest
+          az ml job create --file ./production/job1.yaml --resource-group Test1 --workspace-name test1
+
+    # submit model for trainig and model training
+      - name: Run unit testing
+        if: github.ref == 'refs/heads/main'
+        run: |
+         # on pull trigger to main branch, run model
+         az ml job create --file ./production/job.yaml --resource-group Test1 --workspace-name test1
+
+        
+      
