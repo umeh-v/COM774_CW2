@@ -2,9 +2,9 @@ name: GitHub Actions Test
 # run-name: ${{ github.actor }} workflow test
 on:
     push:
-        branches: [main, stage]
+        branches: [stage]
     pull_request:
-        branches: [main]
+        branches: [main, stage]
 jobs:
   testJob:
     runs-on: ubuntu-latest
