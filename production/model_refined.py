@@ -20,19 +20,19 @@ def remove_duplicate_columns(df):
 mlflow.autolog()
 
 # Load datasets
-train_dataset_path = r"C:\Users\user\Documents\AI_MSc\COM774_CW2\train_dataset.csv"
-test_dataset_path = r"C:\Users\user\Documents\AI_MSc\COM774_CW2\test_dataset.csv"
-train_dataset = pd.read_csv(train_dataset_path)
-test_dataset = pd.read_csv(test_dataset_path)
+#train_dataset_path = r"C:\Users\user\Documents\AI_MSc\COM774_CW2\train_dataset.csv"
+#test_dataset_path = r"C:\Users\user\Documents\AI_MSc\COM774_CW2\test_dataset.csv"
+#train_dataset = pd.read_csv(train_dataset_path)
+#test_dataset = pd.read_csv(test_dataset_path)
 
-#parser = argparse.ArgumentParser()
-#parser.add_argument('--trainingdata', type=str, required=True, help='Dataset for training')
-#parser.add_argument('--testingdata', type=str, required=True, help='Dataset for testing')
-#args = parser.parse_args()
+parser = argparse.ArgumentParser()
+parser.add_argument('--trainingdata', type=str, required=True, help='Dataset for training')
+parser.add_argument('--testingdata', type=str, required=True, help='Dataset for testing')
+args = parser.parse_args()
 
 # Load datasets
-#train_dataset = pd.read_csv(args.trainingdata)
-#test_dataset = pd.read_csv(args.testingdata)
+train_dataset = pd.read_csv(args.trainingdata)
+test_dataset = pd.read_csv(args.testingdata)
 
 # Remove duplicate columns from both datasets
 train_dataset = remove_duplicate_columns(train_dataset)
