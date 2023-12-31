@@ -1,0 +1,20 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
+command: >
+  python -m unittest discover -v -s ./tests
+code: .
+inputs:
+  test_dataset:
+    data:
+      local_path: azureml:test:1
+    mode: ro_mount
+  test_dataset:
+    data:
+      local_path: azureml:train:1
+    mode: ro_mount
+environment: 
+  name: my_test_environment
+  version: 1
+compute: 
+  target: azureml:my-compute-cluster
+description: "Unit tests for ML pipeline"
+experiment_name: "unit-test-experiment"

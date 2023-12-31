@@ -39,7 +39,7 @@ jobs:
         if: github.ref == 'refs/heads/stage'
         run: |
           # on push trigger to stage branch, run unnitest
-          az ml job create --file ./production/job1.yaml --resource-group Test1 --workspace-name test1
+          az ml job create --file ./production/job2.yaml --resource-group Test1 --workspace-name test1
 
     # submit model for trainig and model training
       - name: Run unit testing
