@@ -2,7 +2,7 @@ $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 command: >
   python test_unit.py
   pip install azureml-sdk
-  python test_unit.py --trainingdata ${{ inputs.training_data }} --testingdata ${{ inputs.test_dataset }}
+  python test_unit.py
 code: .
 inputs:
   training_data:

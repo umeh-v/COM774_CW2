@@ -8,6 +8,7 @@ from sklearn.feature_selection import SelectFromModel
 import argparse
 import mlflow.sklearn
 from azureml.core import Workspace, Dataset
+import os
 
 mlflow.autolog()
 
@@ -15,14 +16,13 @@ class TestMLPipeline(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
 
-        parser = argparse.ArgumentParser()
-        parser.add_argument('--trainingdata', type=str, required=True, help='Dataset for training')
-        parser.add_argument('--testingdata', type=str, required=True, help='Dataset for testing')
-        args = parser.parse_args()
+        # Get dataset paths from environment variables set by Azure ML
+        training_data_path = os.getenv('AZUREML_DATAREFERENCE_training_data')
+        testing_data_path = os.getenv('AZUREML_DATAREFERENCE_test_dataset')
 
         # Load datasets
-        cls.train_dataset = pd.read_csv(args.trainingdata)
-        cls.test_dataset = pd.read_csv(args.testingdata)
+        cls.train_dataset = pd.read_csv(training_data_path) if training_data_path else None
+        cls.test_dataset = pd.read_csv(testing_data_path) if testing_data_path else None
 
         # Load the dataset
         #cls.train_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
