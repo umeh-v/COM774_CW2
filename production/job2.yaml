@@ -1,8 +1,6 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 command: >
-  python test_unit.py
-  pip install azureml-sdk
-  python test_unit.py
+  python -m unittest discover -s . -p 'test_*.py'
 code: .
 
 environment: azureml://registries/azureml/environments/sklearn-1.0/versions/21
