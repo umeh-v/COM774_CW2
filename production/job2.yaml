@@ -1,16 +1,15 @@
 $schema: https://azuremlschemas.azureedge.net/latest/commandJob.schema.json
 command: >
   python test_unit.py
+  pip install azureml-sdk
 code: .
 inputs:
+  training_data:
+    type: uri_file
+    path: azureml:train:1
   test_dataset:
-    data:
-      local_path: azureml:test:1
-    mode: ro_mount
-  train_dataset:
-    data:
-      local_path: azureml:train:1
-    mode: ro_mount
+    type: uri_file
+    path: azureml:test:1
 environment: azureml://registries/azureml/environments/sklearn-1.0/versions/21
 compute: test-compute
 description: "Unit tests for ML pipeline"

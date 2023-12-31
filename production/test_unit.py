@@ -14,25 +14,26 @@ mlflow.autolog()
 class TestMLPipeline(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--trainingdata', type=str, required=True, help='Dataset for training')
+        parser.add_argument('--testingdata', type=str, required=True, help='Dataset for testing')
+        args = parser.parse_args()
+
+        # Load datasets
+        cls.train_dataset = pd.read_csv(args.trainingdata)
+        cls.test_dataset = pd.read_csv(args.testingdata)
+
         # Load the dataset
         #cls.train_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
         #cls.test_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
 
-        cls.workspace = Workspace.from_config()
+        #cls.workspace = Workspace.from_config()
         
         # Load the datasets using Azure ML Dataset
-        cls.train_dataset = Dataset.get_by_name(cls.workspace, name='train', version='1').to_pandas_dataframe()
-        cls.test_dataset = Dataset.get_by_name(cls.workspace, name='test', version='1').to_pandas_dataframe()
-        # ...
+        #cls.test_dataset = Dataset.get_by_name(cls.workspace, name='test', version='1').to_pandas_dataframe()   
 
-       # parser = argparse.ArgumentParser()
-       #parser.add_argument('--trainingdata', type=str, required=True, help='Dataset for training')
-       #parser.add_argument('--testingdata', type=str, required=True, help='Dataset for testing')
-       #args = parser.parse_args()
-
-        # Load datasets
-        #cls.train_datasett = pd.read_csv(args.trainingdata)
-        #cls.test_dataset = pd.read_csv(args.testingdata)
+        #test_dataset = cls.test_dataset
 
     def test_label_encoding(self):
         label_encoder = LabelEncoder()
