@@ -3,7 +3,14 @@ code: .
 command: |
   pip install seaborn
   pip install mlflow azureml-mlflow
-  python test_unit.py 
+  python model_refined.py --trainingdata ${{ inputs.training_data }} --testingdata ${{ inputs.test_dataset }}
+inputs:
+  training_data:
+    type: uri_file
+    path: azureml:sampled_train_dataset:1
+  test_dataset:
+    type: uri_file
+    path: azureml:sampled_test_dataset:1
 environment: azureml://registries/azureml/environments/sklearn-1.1/versions/20
 compute: test-compute
 experiment_name: com772_cw2
