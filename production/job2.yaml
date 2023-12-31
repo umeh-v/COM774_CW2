@@ -4,13 +4,7 @@ command: >
   pip install azureml-sdk
   python test_unit.py
 code: .
-inputs:
-  training_data:
-    type: uri_file
-    path: azureml:train:1
-  test_dataset:
-    type: uri_file
-    path: azureml:test:1
+
 environment: azureml://registries/azureml/environments/sklearn-1.0/versions/21
 compute: test-compute
 description: "Unit tests for ML pipeline"
