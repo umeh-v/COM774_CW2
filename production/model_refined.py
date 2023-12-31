@@ -12,7 +12,7 @@ import mlflow.sklearn
 import argparse
 from sklearn.feature_selection import SelectFromModel
 
-# Function to identify and remove duplicate columns
+# Function to identify and remove duplicate features
 def remove_duplicate_columns(df):
     return df.T.drop_duplicates().T
 
