@@ -8,42 +8,16 @@ from sklearn.metrics import accuracy_score, classification_report
 from sklearn.feature_selection import SelectFromModel
 import argparse
 import mlflow.sklearn
-from azureml.core import Workspace, Dataset
-import os
 
-mlflow.autolog()
 
 class TestMLPipeline(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
 
-        # Load the workspace
-        ws = Workspace.from_config()
-        # Get a dataset by its name from the workspace
-        test_dataset = Dataset.get_by_name(ws, name='test', version='latest')
-        train_dataset = Dataset.get_by_name(ws, name='train', version='latest')
-
-        cls.train_dataset = train_dataset.to_pandas_dataframe()
-        cls._test_dataset = test_dataset.to_pandas_dataframe()
-
-
-
-        # Get dataset paths from environment variables set by Azure ML
-        #training_data_path = os.getenv('AZUREML_DATAREFERENCE_training_data')
-        #testing_data_path = os.getenv('AZUREML_DATAREFERENCE_test_dataset')
-
-        # Load datasets
-        #cls.train_dataset = pd.read_csv(training_data_path) if training_data_path else None
-        #cls.test_dataset = pd.read_csv(testing_data_path) if testing_data_path else None
-
         # Load the dataset
-        #cls.train_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
-        #cls.test_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\test_dataset.csv")
-
-        #cls.workspace = Workspace.from_config()
+        cls.train_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\sampled_test_dataset.csv")
+        cls.test_dataset = pd.read_csv(r"C:\Users\user\Documents\COM774_CW2\production\sampled_test_dataset.csv")
         
-        # Load the datasets using Azure ML Dataset
-        #cls.test_dataset = Dataset.get_by_name(cls.workspace, name='test', version='1').to_pandas_dataframe()   
 
     def test_label_encoding(self):
         label_encoder = LabelEncoder()
