@@ -21,12 +21,11 @@ mlflow.autolog()
 
 # Load datasets using argeparse
 parser = argparse.ArgumentParser()
-parser.add_argument('--trainingdata', type=str, required=True, help= 'dataset for training')
-parser.add_argument('--testingdata', type=str, required=True, help= 'dataset for testing')
-
-# Parse the arguments
+parser.add_argument('--trainingdata', type=str, required=True, help='Dataset for training')
+parser.add_argument('--testingdata', type=str, required=True, help='Dataset for testing')
 args = parser.parse_args()
 
+# Load datasets
 train_dataset = pd.read_csv(args.trainingdata)
 test_dataset = pd.read_csv(args.testingdata)
 
