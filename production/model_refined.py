@@ -34,7 +34,7 @@ args = parser.parse_args()
 train_dataset = pd.read_csv(args.trainingdata)
 test_dataset = pd.read_csv(args.testingdata)
 
-# Remove duplicate columns from both datasets
+# Remove duplicate columns from both datasets  hi
 train_dataset = remove_duplicate_columns(train_dataset)
 test_dataset = remove_duplicate_columns(test_dataset)
 
