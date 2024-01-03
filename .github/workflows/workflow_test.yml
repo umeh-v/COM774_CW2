@@ -30,14 +30,14 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           # on push trigger to main branch, run first iteration
-          az ml job create --file ./production/job1.yaml --resource-group Test1 --workspace-name test1
+          az ml job create --file ./production/job.yaml --resource-group Test1 --workspace-name test1
 
     # submit model for trainig and model training with full dataset
       - name: Run unit testing
         if: github.ref == 'refs/heads/stage'
         run: |
          # on pull trigger to stage branch, run second iteration
-         az ml job create --file ./production/job.yaml --resource-group Test1 --workspace-name test1
+         az ml job create --file ./production/job1.yaml --resource-group com774_cw2 --workspace-name com774_cw2
 
         
       
