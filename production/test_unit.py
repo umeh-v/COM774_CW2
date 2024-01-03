@@ -6,8 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.feature_selection import SelectFromModel
-import argparse
-import mlflow.sklearn
+
 
 
 class TestMLPipeline(unittest.TestCase):
