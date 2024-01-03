@@ -12,6 +12,6 @@ inputs:
     type: uri_file
     path: azureml:test:1
 environment: azureml://registries/azureml/environments/sklearn-1.1/versions/20
-compute: test-compute
+compute: ccom774-compute
 experiment_name: com772_cw2
 description: COM774_CW2
